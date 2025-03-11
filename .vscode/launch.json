@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Flask + Botpress Debug",
+        "type": "debugpy",
+        "request": "launch",
+        "module": "flask",
+        "env": {
+          "FLASK_APP": "src/app.py",          // Path if using src folder
+          "FLASK_DEBUG": "1",
+          "BOTPRESS_URL": "http://localhost:3000",
+          "DATABASE_URL": "postgresql://user:pass@localhost:5432/chatbot",
+          "JWT_SECRET": "your-secret-here"
+        },
+        "args": [
+          "run",
+          "--host=0.0.0.0",                   // Allow external connections
+          "--port=5000",                      // Custom port
+          "--no-debugger",                    // Prevent duplicate debugger
+          "--no-reload"                       // Disable auto-reload if needed
+        ],
+        "jinja": true,
+        "justMyCode": false,                  // Debug into library code
+        "pythonArgs": ["-Xfrozen_modules=off"]// For better debugging
+      }
+    ]
+  }

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  botpress:
+    image: botpress/server:v12
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./botpress/data:/botpress/data
+    networks:
+      - chatbot-net
+    depends_on:
+      - api
+
+  api:
+    build: ./api
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./api:/app
+      - ./data:/data
+    networks:
+      - chatbot-net
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: chatbot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chatbot-net
+
+  redis:
+    image: redis:alpine
+    networks:
+      - chatbot-net
+
+volumes:
+  postgres_data:
+
+networks:
+  chatbot-net:

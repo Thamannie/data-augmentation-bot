@@ -1,0 +1,13 @@
+POST http://localhost:5000/ml/predict
+Content-Type: application/json
+X-API-KEY: default-secret-key
+
+{
+  "features": [1.2, 3.4, 5.6]
+}
+
+# 1. Start existing services
+docker-compose up -d api db
+
+# 2. Add Botpress later
+docker-compose up -d botpressP
