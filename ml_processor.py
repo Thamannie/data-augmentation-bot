@@ -5,6 +5,14 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 import os
 
+import requests
+
+ML_API_URL = "https://ml-processor.onrender.com"
+
+def get_ml_prediction(user_input):
+    response = requests.post(f"{ML_API_URL}/predict", json={"text": user_input})
+    return response.json().get("prediction", "No prediction available")
+
 class MLProcessor:
     def __init__(self):
         self.pipeline = None
